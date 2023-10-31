@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>琉璃小栈</title>
+  
+  
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2023-10-28T11:19:00.406Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>琉璃</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我的第一篇博客</title>
+    <link href="http://example.com/2023/10/28/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://example.com/2023/10/28/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</id>
+    <published>2023-10-28T10:53:14.000Z</published>
+    <updated>2023-10-28T11:19:00.406Z</updated>
+    
+    <content type="html"><![CDATA[<p>蒟蒻爬呀爬~~~</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;蒟蒻爬呀爬~~~&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
