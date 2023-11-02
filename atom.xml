@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-11-01T14:50:22.248Z</updated>
+  <updated>2023-11-01T15:12:04.518Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>尝试自动部署</title>
+    <link href="http://example.com/2023/11/01/%E5%B0%9D%E8%AF%95%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
+    <id>http://example.com/2023/11/01/%E5%B0%9D%E8%AF%95%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/</id>
+    <published>2023-11-01T15:04:14.000Z</published>
+    <updated>2023-11-01T15:12:04.518Z</updated>
+    
+    <content type="html"><![CDATA[<p>能够自动部署嘛？不知道~</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;能够自动部署嘛？不知道~&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>我的第一篇博客</title>
