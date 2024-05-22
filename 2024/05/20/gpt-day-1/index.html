@@ -18,20 +18,20 @@
   
     <meta name="description" content="一、梯度下降法：在给定数据集，希望构建模型找出一般规律时，我们总是希望通过模型得到的数据和实际数据的误差尽可能小。我们可以把这个误差当做一个函数，并猜测误差最小的点为 init。为了使 init 尽可能靠近误差最小的点，我们需要计算该点的梯度，并设置学习率 learning_rate 和迭代次数 times,让 init 沿着梯度的反方向，运动 learning_rate 距离，经过多次迭代后会靠">
 <meta property="og:type" content="article">
-<meta property="og:title" content="gpt_day_1">
+<meta property="og:title" content="gpt-day-1">
 <meta property="og:url" content="http://liulisui.github.io/2024/05/20/gpt-day-1/index.html">
 <meta property="og:site_name" content="琉璃小栈">
 <meta property="og:description" content="一、梯度下降法：在给定数据集，希望构建模型找出一般规律时，我们总是希望通过模型得到的数据和实际数据的误差尽可能小。我们可以把这个误差当做一个函数，并猜测误差最小的点为 init。为了使 init 尽可能靠近误差最小的点，我们需要计算该点的梯度，并设置学习率 learning_rate 和迭代次数 times,让 init 沿着梯度的反方向，运动 learning_rate 距离，经过多次迭代后会靠">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-20T05:45:52.000Z">
-<meta property="article:modified_time" content="2024-05-22T11:02:36.183Z">
+<meta property="article:modified_time" content="2024-05-22T12:36:31.745Z">
 <meta property="article:author" content="liuli">
-<meta property="article:tag" content="gpt">
+<meta property="article:tag" content="make gpt from scratch">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>gpt_day_1 - 琉璃小栈</title>
+  <title>gpt-day-1 - 琉璃小栈</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -209,7 +209,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="gpt_day_1"></span>
+            <span id="subtitle" data-typed-text="gpt-day-1"></span>
           
         </div>
 
@@ -232,7 +232,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          486 字
+          484 字
         
       </span>
     
@@ -280,24 +280,24 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">gpt_day_1</h1>
+            <h1 id="seo-header">gpt-day-1</h1>
             
             
               <div class="markdown-body">
                 
                 <p>一、梯度下降法：在给定数据集，希望构建模型找出一般规律时，我们总是希望通过模型得到的数据和实际数据的误差尽可能小。我们可以把这个误差当做一个函数，并猜测误差最小的点为 init。为了使 init 尽可能靠近误差最小的点，我们需要计算该点的梯度，并设置学习率 learning_rate 和迭代次数 times,让 init 沿着梯度的反方向，运动 learning_rate 距离，经过多次迭代后会靠近函数极小点。</p>
 <p>二、线性回归：</p>
-<p>多元线性回归模型可以表示为：</p>
-<p>$$<br>y &#x3D; \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_n x_n + \epsilon<br>$$<br>  其中，𝑌是因变量，𝑋1,𝑋2,…,𝑋𝑛是自变量，𝛽0,𝛽1,𝛽2,…,𝛽𝑛是模型的参数，ε 是误差项，表示模型无法解释的部分。</p>
-<p>  线性回归的目标是找到最佳的参数，使得模型的预测值与实际观测值之间的残差（预测值与实际值之间的差异）最小化。这通常通过最小化残差平方和（即最小化平方损失函数）来实现，这个过程被称为最小二乘法。之所以用的是差异的平方，是因为取绝对值不好求导。</p>
+<p>多元线性回归模型可以表示为：<br>y &#x3D; 𝛽1𝑋1 + 𝛽2𝑋2 + … + 𝛽𝑛𝑋𝑛 +b</p>
+<p>其中，𝑌 是因变量，𝑋1,𝑋2,…,𝑋𝑛 是自变量，𝛽1,𝛽2,…,𝛽𝑛 是模型的参数，ε 是误差项，表示模型无法解释的部分。</p>
+<p>线性回归的目标是找到最佳的参数，使得模型的预测值与实际观测值之间的残差（预测值与实际值之间的差异）最小化。这通常通过最小化残差平方和（即最小化平方损失函数）来实现，这个过程被称为最小二乘法。之所以用的是差异的平方，是因为取绝对值不好求导。</p>
 <p>三、线性回归的实际应用：</p>
-<p>​	1）计算模型预测值 	2）计算误差</p>
-<p>​	3）求导                    	4）更新参数</p>
-<p>​	以这个顺序迭代</p>
-<p>​	其中求导是通过计算出来的误差对该参数求导。因为误差使用的是均方误差，所以导数的形式近似于：</p>
-<p>​	-2*（（实际数据矩阵-模拟数据矩阵）点乘（该参数对应的一列数据值））&#x2F;样本个数</p>
+<p>​ 1）计算模型预测值 2）计算误差</p>
+<p>​ 3）求导 4）更新参数</p>
+<p>​ 以这个顺序迭代</p>
+<p>​ 其中求导是通过计算出来的误差对该参数求导。因为误差使用的是均方误差，所以导数的形式近似于：</p>
+<p>​ -2*（（实际数据矩阵-模拟数据矩阵）点乘（该参数对应的一列数据值））&#x2F;样本个数</p>
 <p>四、神经网络：</p>
-<p>​	简单来说，就是一层层的线性回归，不断用一些参数线性回归产生新的参数，再用新的参数继续线性回归，直至得到最终的输出。</p>
+<p>​ 简单来说，就是一层层的线性回归，不断用一些参数线性回归产生新的参数，再用新的参数继续线性回归，直至得到最终的输出。</p>
 
                 
               </div>
@@ -310,7 +310,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/gpt/" class="print-no-link">#gpt</a>
+        <a href="/tags/make-gpt-from-scratch/" class="print-no-link">#make gpt from scratch</a>
       
     </div>
   
@@ -322,7 +322,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>gpt_day_1</div>
+      <div>gpt-day-1</div>
       <div>http://liulisui.github.io/2024/05/20/gpt-day-1/</div>
     </div>
     <div class="license-meta">
@@ -367,15 +367,15 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2024/05/22/gpt_day_2/" title="gpt-day-2">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">gpt-day-2</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
-                    
-                      <a href="/2024/05/19/try/" title="try">
-                        <span class="hidden-mobile">try</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
                     
                   </article>
                 </div>

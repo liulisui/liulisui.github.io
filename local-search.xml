@@ -4,17 +4,17 @@
   
   
   <entry>
-    <title>gpt_day_1</title>
-    <link href="/2024/05/20/gpt-day-1/"/>
-    <url>/2024/05/20/gpt-day-1/</url>
+    <title>gpt-day-2</title>
+    <link href="/2024/05/22/gpt_day_2/"/>
+    <url>/2024/05/22/gpt_day_2/</url>
     
-    <content type="html"><![CDATA[<p>一、梯度下降法：在给定数据集，希望构建模型找出一般规律时，我们总是希望通过模型得到的数据和实际数据的误差尽可能小。我们可以把这个误差当做一个函数，并猜测误差最小的点为 init。为了使 init 尽可能靠近误差最小的点，我们需要计算该点的梯度，并设置学习率 learning_rate 和迭代次数 times,让 init 沿着梯度的反方向，运动 learning_rate 距离，经过多次迭代后会靠近函数极小点。</p><p>二、线性回归：</p><p>多元线性回归模型可以表示为：</p><p>$$<br>y &#x3D; \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_n x_n + \epsilon<br>$$<br>  其中，𝑌是因变量，𝑋1,𝑋2,…,𝑋𝑛是自变量，𝛽0,𝛽1,𝛽2,…,𝛽𝑛是模型的参数，ε 是误差项，表示模型无法解释的部分。</p><p>  线性回归的目标是找到最佳的参数，使得模型的预测值与实际观测值之间的残差（预测值与实际值之间的差异）最小化。这通常通过最小化残差平方和（即最小化平方损失函数）来实现，这个过程被称为最小二乘法。之所以用的是差异的平方，是因为取绝对值不好求导。</p><p>三、线性回归的实际应用：</p><p>​1）计算模型预测值 2）计算误差</p><p>​3）求导                    4）更新参数</p><p>​以这个顺序迭代</p><p>​其中求导是通过计算出来的误差对该参数求导。因为误差使用的是均方误差，所以导数的形式近似于：</p><p>​-2*（（实际数据矩阵-模拟数据矩阵）点乘（该参数对应的一列数据值））&#x2F;样本个数</p><p>四、神经网络：</p><p>​简单来说，就是一层层的线性回归，不断用一些参数线性回归产生新的参数，再用新的参数继续线性回归，直至得到最终的输出。</p>]]></content>
+    <content type="html"><![CDATA[<p>1、张量：有很多维度的数据集合，同时在 pytorch 中有很多派生属性</p><p>2、了解到了一些 pytorch 中常用的代码</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br>a = torch.ones(<span class="hljs-number">5</span>,<span class="hljs-number">5</span>)<br><br><span class="hljs-built_in">sum</span>=torch.<span class="hljs-built_in">sum</span>(a,axis=<span class="hljs-number">1</span>)<br>mean=torch.mean(a,axis=<span class="hljs-number">1</span>)<br><br><br><span class="hljs-comment">#降维和升维</span><br>x=torch.ones(<span class="hljs-number">5</span>,<span class="hljs-number">1</span>)<br><span class="hljs-built_in">print</span>(x)<br>y=torch.squeeze(a)<br><span class="hljs-built_in">print</span>(y)<br><br>z=torch.unsqueeze(y,dim=<span class="hljs-number">1</span>)<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyModel</span>(nn.Module):<br><br><span class="hljs-comment">#Constructor</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br><span class="hljs-built_in">super</span>().__init__()<br>self.first_layer = nn.Lineaer(<span class="hljs-number">4</span>,<span class="hljs-number">6</span>)<br><span class="hljs-comment">#之后对不同层初始化</span><br><br><span class="hljs-comment">#Forward // get_model_prediction(data)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self,x</span>)<br><span class="hljs-comment">#如果想要得到第一层的结果</span><br>first_layer_output=self.first_layer.forward(x)<br><br>t1=torch.reshape(x,(-<span class="hljs-number">1</span>,size)) <span class="hljs-comment">#-1的意思是会根据size自动计算</span><br>t2=torch.mean(x,axis=<span class="hljs-number">1</span>)<br>t3=torch.cat((x,y),dim=<span class="hljs-number">1</span>)<br>t4=torch.nn.functional.mse_loss(prediction,targer,reduction=<span class="hljs-string">&quot;mean&quot;</span>)<br>t5=torch.<span class="hljs-built_in">round</span>(x,decimals=<span class="hljs-number">5</span>) <span class="hljs-comment">#保留5位小数</span><br></code></pre></td></tr></table></figure><p>其中各个权重和偏差是按某种分布初始化的（我们无法看出）</p><p>3、过拟合出现的原因：</p><p>1）模型记住了太多不相关的细节（噪音</p><p>2）模型太过复杂</p><p>4、Dropout:一种用于解决过拟合的方法，让一些神经元以一定的概率被丢弃，不参与传播，这样可以降低模型的复杂度（但是不是永久删除，只是每次迭代中有一定概率被抛弃了）</p>]]></content>
     
     
     
     <tags>
       
-      <tag>gpt</tag>
+      <tag>make gpt from scratch</tag>
       
     </tags>
     
@@ -23,26 +23,19 @@
   
   
   <entry>
-    <title>try</title>
-    <link href="/2024/05/19/try/"/>
-    <url>/2024/05/19/try/</url>
+    <title>gpt-day-1</title>
+    <link href="/2024/05/20/gpt-day-1/"/>
+    <url>/2024/05/20/gpt-day-1/</url>
     
-    <content type="html"><![CDATA[<p>elcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="/2024/05/19/hello-world/"/>
-    <url>/2024/05/19/hello-world/</url>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    <content type="html"><![CDATA[<p>一、梯度下降法：在给定数据集，希望构建模型找出一般规律时，我们总是希望通过模型得到的数据和实际数据的误差尽可能小。我们可以把这个误差当做一个函数，并猜测误差最小的点为 init。为了使 init 尽可能靠近误差最小的点，我们需要计算该点的梯度，并设置学习率 learning_rate 和迭代次数 times,让 init 沿着梯度的反方向，运动 learning_rate 距离，经过多次迭代后会靠近函数极小点。</p><p>二、线性回归：</p><p>多元线性回归模型可以表示为：<br>y &#x3D; 𝛽1𝑋1 + 𝛽2𝑋2 + … + 𝛽𝑛𝑋𝑛 +b</p><p>其中，𝑌 是因变量，𝑋1,𝑋2,…,𝑋𝑛 是自变量，𝛽1,𝛽2,…,𝛽𝑛 是模型的参数，ε 是误差项，表示模型无法解释的部分。</p><p>线性回归的目标是找到最佳的参数，使得模型的预测值与实际观测值之间的残差（预测值与实际值之间的差异）最小化。这通常通过最小化残差平方和（即最小化平方损失函数）来实现，这个过程被称为最小二乘法。之所以用的是差异的平方，是因为取绝对值不好求导。</p><p>三、线性回归的实际应用：</p><p>​ 1）计算模型预测值 2）计算误差</p><p>​ 3）求导 4）更新参数</p><p>​ 以这个顺序迭代</p><p>​ 其中求导是通过计算出来的误差对该参数求导。因为误差使用的是均方误差，所以导数的形式近似于：</p><p>​ -2*（（实际数据矩阵-模拟数据矩阵）点乘（该参数对应的一列数据值））&#x2F;样本个数</p><p>四、神经网络：</p><p>​ 简单来说，就是一层层的线性回归，不断用一些参数线性回归产生新的参数，再用新的参数继续线性回归，直至得到最终的输出。</p>]]></content>
     
     
+    
+    <tags>
+      
+      <tag>make gpt from scratch</tag>
+      
+    </tags>
     
   </entry>
   
