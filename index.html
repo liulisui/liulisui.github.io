@@ -236,15 +236,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/05/25/gpt-dat-4/" target="_self">
-          gpt-dat-4
+        <a href="/2024/05/25/gpt-day-4/" target="_self">
+          gpt-day-4
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/05/25/gpt-dat-4/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/05/25/gpt-day-4/" target="_self">
         <div>
-          
+          1、one-hot-encoding（热编码）：       一个string个数*总词汇个数的矩阵，每一行中有一个1，每行表示1的列坐标对应的string。  事实上，lookup table是一个总词汇个数*embedding维度的矩阵，如果我们把one-hot-input和lookup table矩阵相乘，则得到的矩阵的每一行都是对应string的embedding   2、nn.embed
         </div>
       </a>
 
@@ -258,6 +258,13 @@
           </div>
         
         
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/make-gpt-from-scratch/">#make gpt from scratch</a>
+            
+          </div>
         
       </div>
     </article>
@@ -277,7 +284,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2024/05/23/gpt-day-3/" target="_self">
         <div>
-          1、ReLU激活函数&#x3D;max(0,x) ​	激活函数Sigmoid(x)&#x3D;1&#x2F;(1+e*(-x)),产生0-1之间的数字 2、激活函数和dropout像是包在每个神经元外的一层膜，它们会对神经元想要传达的数据作一定的处理。 3、训练模型 1）定义一个模型对象 2）定义一个误差计算函数（在之前的回归计算，用到的是mse，但是这里识别图片中的数字，是一种分类问题，用到的是
+          1、ReLU激活函数&#x3D;max(0,x) ​	激活函数Sigmoid(x)&#x3D;1&#x2F;(1+e*(-x)),产生0-1之间的数字 2、激活函数和dropout像是包在每个神经元外的一层膜，它们会对神经元想要传达的数据作一定的处理。 3、训练模型 1）定义一个模型对象 2）定义一个误差计算函数（在之前的回归计算，希望用模型和几个参数来计算一个值，比如已知父母身高和当前体重身高预
         </div>
       </a>
 
@@ -309,13 +316,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/05/22/gpt_day_2/" target="_self">
+        <a href="/2024/05/22/gpt-day-2/" target="_self">
           gpt-day-2
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/05/22/gpt_day_2/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/05/22/gpt-day-2/" target="_self">
         <div>
           1、张量：有很多维度的数据集合，同时在 pytorch 中有很多派生属性 2、了解到了一些 pytorch 中常用的代码 1234567891011121314151617181920212223242526272829303132333435import torchimport torch.nn as nna = torch.ones(5,5)sum=torch.sum(a,axis=1)mea
         </div>
