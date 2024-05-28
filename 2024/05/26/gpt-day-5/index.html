@@ -16,27 +16,26 @@
   <meta name="author" content="liuli">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1、one-hot-encoding（热编码）：       一个string个数*总词汇个数的矩阵，每一行中有一个1，每行表示1的列坐标对应的string。  事实上，lookup table是一个总词汇个数*embedding维度的矩阵，如果我们把one-hot-input和lookup table矩阵相乘，则得到的矩阵的每一行都是对应string的embedding   2、nn.embed">
+    <meta name="description" content="1、torch.randint(low&#x3D;a,high&#x3D;b(取不到)，size&#x3D;(张量形状)) 该函数用于对某一形状的张量填充随机数字 2、attention:在过去的课程中，我们对每一个token的embedding只是做了简单的平均，但事实上为了实现更复杂的效果，每一个embedding的权重应该不同。  如图，在左边的这个T*T矩阵中，(i,j)元素可以理解为第i">
 <meta property="og:type" content="article">
-<meta property="og:title" content="gpt-day-4">
-<meta property="og:url" content="http://liulisui.github.io/2024/05/25/gpt-day-4/index.html">
+<meta property="og:title" content="gpt-day-5">
+<meta property="og:url" content="http://liulisui.github.io/2024/05/26/gpt-day-5/index.html">
 <meta property="og:site_name" content="琉璃小栈">
-<meta property="og:description" content="1、one-hot-encoding（热编码）：       一个string个数*总词汇个数的矩阵，每一行中有一个1，每行表示1的列坐标对应的string。  事实上，lookup table是一个总词汇个数*embedding维度的矩阵，如果我们把one-hot-input和lookup table矩阵相乘，则得到的矩阵的每一行都是对应string的embedding   2、nn.embed">
+<meta property="og:description" content="1、torch.randint(low&#x3D;a,high&#x3D;b(取不到)，size&#x3D;(张量形状)) 该函数用于对某一形状的张量填充随机数字 2、attention:在过去的课程中，我们对每一个token的embedding只是做了简单的平均，但事实上为了实现更复杂的效果，每一个embedding的权重应该不同。  如图，在左边的这个T*T矩阵中，(i,j)元素可以理解为第i">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://liulisui.github.io/img/gpt-day-4-1.png">
-<meta property="og:image" content="http://liulisui.github.io/img/gpt-day-4-2.png">
-<meta property="og:image" content="http://liulisui.github.io/img/gpt-day-4-3.png">
-<meta property="og:image" content="http://liulisui.github.io/img/gpt-day-4-4.png">
-<meta property="article:published_time" content="2024-05-25T14:33:31.000Z">
-<meta property="article:modified_time" content="2024-05-26T03:31:01.449Z">
+<meta property="og:image" content="http://liulisui.github.io/img/gpt-day-5-1.png">
+<meta property="og:image" content="http://liulisui.github.io/img/gpt-day-5-2.png">
+<meta property="og:image" content="http://liulisui.github.io/img/gpt-day-5-3.png">
+<meta property="article:published_time" content="2024-05-26T05:10:04.000Z">
+<meta property="article:modified_time" content="2024-05-28T09:29:09.797Z">
 <meta property="article:author" content="liuli">
 <meta property="article:tag" content="make gpt from scratch">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://liulisui.github.io/img/gpt-day-4-1.png">
+<meta name="twitter:image" content="http://liulisui.github.io/img/gpt-day-5-1.png">
   
   
   
-  <title>gpt-day-4 - 琉璃小栈</title>
+  <title>gpt-day-5 - 琉璃小栈</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -214,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="gpt-day-4"></span>
+            <span id="subtitle" data-typed-text="gpt-day-5"></span>
           
         </div>
 
@@ -225,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-05-25 22:33" pubdate>
-          2024年5月25日 晚上
+        <time datetime="2024-05-26 13:10" pubdate>
+          2024年5月26日 下午
         </time>
       </span>
     
@@ -237,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          160 字
+          557 字
         
       </span>
     
@@ -248,7 +247,7 @@
         
         
         
-          2 分钟
+          5 分钟
         
       </span>
     
@@ -285,21 +284,29 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">gpt-day-4</h1>
+            <h1 id="seo-header">gpt-day-5</h1>
             
             
               <div class="markdown-body">
                 
-                <p>1、one-hot-encoding（热编码）：<br>    <img src="/./img/gpt-day-4-1.png" srcset="/img/loading.gif" lazyload></p>
- <p style="text-indent: 2em;"> 一个string个数*总词汇个数的矩阵，每一行中有一个1，每行表示1的列坐标对应的string。
- <p style="text-indent: 2em;">事实上，lookup table是一个总词汇个数*embedding维度的矩阵，如果我们把one-hot-input和lookup table矩阵相乘，则得到的矩阵的每一行都是对应string的embedding
+                <p>1、torch.randint(low&#x3D;a,high&#x3D;b(取不到)，size&#x3D;(张量形状))</p>
+<p>该函数用于对某一形状的张量填充随机数字</p>
+<p>2、attention:在过去的课程中，我们对每一个token的embedding只是做了简单的平均，但事实上为了实现更复杂的效果，每一个embedding的权重应该不同。</p>
+<p><img src="/./img/gpt-day-5-1.png" srcset="/img/loading.gif" lazyload></p>
+<p>如图，在左边的这个T*T矩阵中，(i,j)元素可以理解为第i个token和第j个token之间的strength&#x2F;score&#x2F;affinity，本质上是，在已经考虑了i-1个token,尝试加入第i个token时，这个第i个token和前面的各个token之间的联系。</p>
+<p>而self attention layer的目的，就是为任意的输入生成适合的权重。</p>
+<p>attention公式如图：</p>
+<p><img src="/./img/gpt-day-5-2.png" srcset="/img/loading.gif" lazyload></p>
+<p>其中的Q是由每个token的embedding经过linear层生成的，用于每个token去匹配别的token的向量，而K也是由每个token的embedding经过linear层生成的，用于被其他token匹配的向量，两者的维度相同，均为T*attention_dim，而Q点乘K转置会生成T×T矩阵，矩阵中第(i,j)个元素的值越大，可以理解为第i个token向第j个token的匹配程度越高。</p>
+<p><img src="/./img/gpt-day-5-3.png" srcset="/img/loading.gif" lazyload></p>
+<p>softmax函数本质是将一行数据中全部压缩到0与1之间，并且这一行数据的和为0，这是对数据的优化处理。</p>
+<p>dk就是attention_dim,它只是一个常数，但是除以根号dk能够避免一些梯度爆炸问题（算出来的值非常大）。</p>
+<p>这样我们就得到了scores矩阵，表示每个token两两之间的关系。</p>
+<p>而v,也就是由embedding生成的value，表示了每个token要传达的信息，将scores点乘v，我们就能得到在加入相应token之后的embedding。</p>
+<p>3、在tensor运算中，@符号可视为torch.matmul,即为矩阵点乘</p>
+<p>4、为了使得未来的token不会对当下的token产生影响，使用mask掩码方法，也就是把那些位置全部赋值为负无穷，这样e的负无穷次可以视为0，不会对整体权重产生影响。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stylus">tri=torch<span class="hljs-selector-class">.tril</span>(torch<span class="hljs-selector-class">.ones</span>(key<span class="hljs-selector-class">.shape</span><span class="hljs-selector-attr">[1]</span>,key<span class="hljs-selector-class">.shape</span><span class="hljs-selector-attr">[1]</span>))<span class="hljs-selector-id">#key</span><span class="hljs-selector-class">.shape</span><span class="hljs-selector-attr">[1]</span>也就是T,文本长度scores=scores<span class="hljs-selector-class">.masked_fill</span>(tri==<span class="hljs-number">0</span>,<span class="hljs-attribute">float</span>(<span class="hljs-string">&#x27;-inf&#x27;</span>))<br>scores=torch<span class="hljs-selector-class">.nn</span><span class="hljs-selector-class">.functional</span><span class="hljs-selector-class">.softmax</span>(scores,dim=<span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure>
 
-<p><img src="/./img/gpt-day-4-2.png" srcset="/img/loading.gif" lazyload></p>
-<p>2、nn.embedding可以理解为由nn.linear(总词汇数，embedding维度)生成的</p>
-<p><img src="/./img/gpt-day-4-3.png" srcset="/img/loading.gif" lazyload></p>
-<p>3、总结：</p>
-<p><img src="/./img/gpt-day-4-4.png" srcset="/img/loading.gif" lazyload></p>
-<p>图中的avg可以理解为由每个单词的意思整合为一句话的意思(NLP中的bag of words模型），最终我们要得到的是每句话的积极和消极程度</p>
 
                 
               </div>
@@ -324,8 +331,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>gpt-day-4</div>
-      <div>http://liulisui.github.io/2024/05/25/gpt-day-4/</div>
+      <div>gpt-day-5</div>
+      <div>http://liulisui.github.io/2024/05/26/gpt-day-5/</div>
     </div>
     <div class="license-meta">
       
@@ -337,7 +344,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年5月25日</div>
+          <div>2024年5月26日</div>
         </div>
       
       
@@ -369,9 +376,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/05/26/gpt-day-5/" title="gpt-day-5">
+                      <a href="/2024/05/27/gpt-day-6/" title="gpt-day-6">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">gpt-day-5</span>
+                        <span class="hidden-mobile">gpt-day-6</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -379,8 +386,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/05/23/gpt-day-3/" title="gpt-day-3">
-                        <span class="hidden-mobile">gpt-day-3</span>
+                      <a href="/2024/05/25/gpt-day-4/" title="gpt-day-4">
+                        <span class="hidden-mobile">gpt-day-4</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
