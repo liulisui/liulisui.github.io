@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>gpt-day-7</title>
+    <link href="/2024/05/29/gpt-day-7/"/>
+    <url>/2024/05/29/gpt-day-7/</url>
+    
+    <content type="html"><![CDATA[<p>1、Transformer模型本质上是一个无序的结构，Transformer模型Self-Attention Mechanism同时处理整个序列，不依赖于前后顺序进行计算，所以我们需要某种东西来记忆每个词的位置，使得模型能够识别词的顺序，这个东西我们称之为positional embedding。positional embedding中实际上存储了每个token的位置，token embedding需要和它加起来之后再进入transformer block</p><p>2、在transformer block中，我们可以发现还有一个feed forward netword(ffn),事实上没有这一层模型也是可以使用的，但是效果上差了很多。原因在于ffn变换了attention output的空间，从而增加了模型的表达能力，其内部包含了2层linear层，中间有ReLu激活函数。在经过ffn之后，输出的维度和输入的维度不变，都是model_dim，然后进入下一个transform block。</p><p>3、为了连接很多个tranformer block,我们往往用到</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">nn.Sequential()<br></code></pre></td></tr></table></figure><p> 可以把他理解为一个list（比如它有append方法），但是这个list只能存储neural network layer。这个东西的方便之处在于，给它一个输入，它会将经过第一层layer的输出自动输入到第二层layer,这样我们就能直接得到这个输入在连续经过这么多层之后的输出了。</p><p>4、在gooogle论文流程图中没有提到的是，在最后一个transformer block的输出后，再加上一层norm，效果会更好。</p><p>5、nn.embedding()可以用于创建嵌入层，在为pos embedding创建层之后，我们需要传入一串文本每个位置的索引值，可以用到</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">torch.arange(t)<br></code></pre></td></tr></table></figure><p>6、softmax函数既可以视为一个层，也可以视为一个函数</p><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">self.soft</span>=nn.softmax(dim=-<span class="hljs-number">1</span>)<br><span class="hljs-attr">res</span>=self.soft(x)<br><br><span class="hljs-comment">#第二种写法</span><br><span class="hljs-attr">res</span>=nn.functional.softmax(x,dim=-<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure><p>7、在实际预测下一个token时，不是选择最大的（不然结果会很奇怪），运用了一个取样函数</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">torch.multinomial(prob,<span class="hljs-number">1</span>,generator=generator)<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>make gpt from scratch</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>gpt-day-6</title>
     <link href="/2024/05/27/gpt-day-6/"/>
     <url>/2024/05/27/gpt-day-6/</url>

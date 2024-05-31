@@ -16,25 +16,22 @@
   <meta name="author" content="liuli">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1、Multi-Head Attention:多头注意力就是用多个注意力头分别生成原来一个注意力头产生的一部分信息，再把这些信息拼接起来。多头往往比单头效果更好，因为多头中的每个头参数不同，学习效果也不同，他们可以专门用于分析语言中的某一个组成部分。 2、 123456self.module_list&#x3D; nn.ModuleList()for _ in range(num_heads):	self.">
+    <meta name="description" content="1、Transformer模型本质上是一个无序的结构，Transformer模型Self-Attention Mechanism同时处理整个序列，不依赖于前后顺序进行计算，所以我们需要某种东西来记忆每个词的位置，使得模型能够识别词的顺序，这个东西我们称之为positional embedding。positional embedding中实际上存储了每个token的位置，token embeddi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="gpt-day-6">
-<meta property="og:url" content="http://liulisui.github.io/2024/05/27/gpt-day-6/index.html">
+<meta property="og:title" content="gpt-day-7">
+<meta property="og:url" content="http://liulisui.github.io/2024/05/29/gpt-day-7/index.html">
 <meta property="og:site_name" content="琉璃小栈">
-<meta property="og:description" content="1、Multi-Head Attention:多头注意力就是用多个注意力头分别生成原来一个注意力头产生的一部分信息，再把这些信息拼接起来。多头往往比单头效果更好，因为多头中的每个头参数不同，学习效果也不同，他们可以专门用于分析语言中的某一个组成部分。 2、 123456self.module_list&#x3D; nn.ModuleList()for _ in range(num_heads):	self.">
+<meta property="og:description" content="1、Transformer模型本质上是一个无序的结构，Transformer模型Self-Attention Mechanism同时处理整个序列，不依赖于前后顺序进行计算，所以我们需要某种东西来记忆每个词的位置，使得模型能够识别词的顺序，这个东西我们称之为positional embedding。positional embedding中实际上存储了每个token的位置，token embeddi">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://liulisui.github.io/img/gpt-day-6-1.png">
-<meta property="og:image" content="http://liulisui.github.io/img/gpt-day-6-2.png">
-<meta property="article:published_time" content="2024-05-27T10:08:18.000Z">
-<meta property="article:modified_time" content="2024-05-28T23:22:30.536Z">
+<meta property="article:published_time" content="2024-05-29T04:52:18.000Z">
+<meta property="article:modified_time" content="2024-05-31T07:11:01.312Z">
 <meta property="article:author" content="liuli">
 <meta property="article:tag" content="make gpt from scratch">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://liulisui.github.io/img/gpt-day-6-1.png">
   
   
   
-  <title>gpt-day-6 - 琉璃小栈</title>
+  <title>gpt-day-7 - 琉璃小栈</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -212,7 +209,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="gpt-day-6"></span>
+            <span id="subtitle" data-typed-text="gpt-day-7"></span>
           
         </div>
 
@@ -223,8 +220,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-05-27 18:08" pubdate>
-          2024年5月27日 晚上
+        <time datetime="2024-05-29 12:52" pubdate>
+          2024年5月29日 下午
         </time>
       </span>
     
@@ -235,7 +232,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          529 字
+          491 字
         
       </span>
     
@@ -283,28 +280,27 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">gpt-day-6</h1>
+            <h1 id="seo-header">gpt-day-7</h1>
             
             
               <div class="markdown-body">
                 
-                <p>1、Multi-Head Attention:多头注意力就是用多个注意力头分别生成原来一个注意力头产生的一部分信息，再把这些信息拼接起来。多头往往比单头效果更好，因为多头中的每个头参数不同，学习效果也不同，他们可以专门用于分析语言中的某一个组成部分。</p>
-<p>2、</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs stylus">self.module_list= nn<span class="hljs-selector-class">.ModuleList</span>()<br><br><span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_heads):<br><br>	self<span class="hljs-selector-class">.module_list</span>. <span class="hljs-built_in">append</span>(self<span class="hljs-selector-class">.SingleHeadAttention</span>(embedding_dim,attention_dim<span class="hljs-comment">//num_heads))</span><br><br></code></pre></td></tr></table></figure>
+                <p>1、Transformer模型本质上是一个无序的结构，Transformer模型Self-Attention Mechanism同时处理整个序列，不依赖于前后顺序进行计算，所以我们需要某种东西来记忆每个词的位置，使得模型能够识别词的顺序，这个东西我们称之为positional embedding。positional embedding中实际上存储了每个token的位置，token embedding需要和它加起来之后再进入transformer block</p>
+<p>2、在transformer block中，我们可以发现还有一个feed forward netword(ffn),事实上没有这一层模型也是可以使用的，但是效果上差了很多。原因在于ffn变换了attention output的空间，从而增加了模型的表达能力，其内部包含了2层linear层，中间有ReLu激活函数。在经过ffn之后，输出的维度和输入的维度不变，都是model_dim，然后进入下一个transform block。</p>
+<p>3、为了连接很多个tranformer block,我们往往用到</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">nn.Sequential()<br></code></pre></td></tr></table></figure>
 
-<p>上述语句可用于创建多头模型列表，列表中每一个头就是上个练习中写的单头，在 forward 函数中只需将每个头的输出信息拼接即可(使用 torch.cat()函数拼接)</p>
-<p>3、Transformers</p>
-<p>1）skip&#x2F;Residual Connection 残差连接：指的是将子层的输出叠加上子层的输入，整体作为下一层输入（相当于额外地把子层的输入跳过了子层，给了下一层），可以理解为 output&#x3D;<em>x</em>+<em>F</em>(<em>x</em>)，这样能够缓解梯度消失和梯度爆炸问题</p>
-<p>2)layer normalization:公式如图</p>
-<p><img src="/./img/gpt-day-6-1.png" srcset="/img/loading.gif" lazyload></p>
-<p>首先将其归一化，归一化的数据的平均值为 0，方差为 1，使得数据分布更加稳定，避免梯度消失或爆炸的问题；同时实施线性变化，也就是对数据进行放大放小或者平移，数据整体的相对分布结构是不变的，依然能够保持相对稳定，但是数据的整体分布还是发生了变化，这样表达能力会更灵活。（好吧这真的有点难以理解）</p>
-<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">layer_norm <span class="hljs-operator">=</span> nn.LayerNorm(normalized_shape<span class="hljs-operator">=</span><span class="hljs-number">100</span>)<br></code></pre></td></tr></table></figure>
+<p> 可以把他理解为一个list（比如它有append方法），但是这个list只能存储neural network layer。这个东西的方便之处在于，给它一个输入，它会将经过第一层layer的输出自动输入到第二层layer,这样我们就能直接得到这个输入在连续经过这么多层之后的输出了。</p>
+<p>4、在gooogle论文流程图中没有提到的是，在最后一个transformer block的输出后，再加上一层norm，效果会更好。</p>
+<p>5、nn.embedding()可以用于创建嵌入层，在为pos embedding创建层之后，我们需要传入一串文本每个位置的索引值，可以用到</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">torch.arange(t)<br></code></pre></td></tr></table></figure>
 
-<p>3）在最终的 linear 层，将 T×attention_dim 转化成 T×vocal_size，这样再运用 softmax 就能得到概率分布了</p>
-<p>4、在 google 的示意图中 norm 被运用在了 attention 和 feed forward 之后，但事实上先运用 norm 再运用二者，同时对于整体使用残差连接，会有更好的效果。实际流程图如下：</p>
-<p><img src="/./img/gpt-day-6-2.png" srcset="/img/loading.gif" lazyload></p>
-<p>其中，x可以理解为产生的embedded张量，output为multi_attention(norm(x))+x</p>
-<p>5、attention_dim 和 embedding_dim 在实际使用中往往是一样的,可以视作model_dim（但也可以有所不同）</p>
+<p>6、softmax函数既可以视为一个层，也可以视为一个函数</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">self.soft</span>=nn.softmax(dim=-<span class="hljs-number">1</span>)<br><span class="hljs-attr">res</span>=self.soft(x)<br><br><span class="hljs-comment">#第二种写法</span><br><span class="hljs-attr">res</span>=nn.functional.softmax(x,dim=-<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+
+<p>7、在实际预测下一个token时，不是选择最大的（不然结果会很奇怪），运用了一个取样函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">torch.multinomial(prob,<span class="hljs-number">1</span>,generator=generator)<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -329,8 +325,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>gpt-day-6</div>
-      <div>http://liulisui.github.io/2024/05/27/gpt-day-6/</div>
+      <div>gpt-day-7</div>
+      <div>http://liulisui.github.io/2024/05/29/gpt-day-7/</div>
     </div>
     <div class="license-meta">
       
@@ -342,7 +338,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年5月27日</div>
+          <div>2024年5月29日</div>
         </div>
       
       
@@ -374,18 +370,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/05/29/gpt-day-7/" title="gpt-day-7">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">gpt-day-7</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/05/26/gpt-day-5/" title="gpt-day-5">
-                        <span class="hidden-mobile">gpt-day-5</span>
+                      <a href="/2024/05/27/gpt-day-6/" title="gpt-day-6">
+                        <span class="hidden-mobile">gpt-day-6</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
